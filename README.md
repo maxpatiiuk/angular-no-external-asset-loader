@@ -1,8 +1,10 @@
 # Angular build fails if external library imports assets in CSS files
 
-If user imports a CSS file that includes an asset `url()`, such asset is resolved correctly.
+If user imports a CSS file that includes an asset `url()`, such asset is
+resolved correctly.
 
-But, if such CSS file is imported by an external library, the asset is resolved automatically only in serve mode.
+But, if such CSS file is imported by an external library, the asset is resolved
+automatically only in serve mode.
 
 During build, the asset is not resolved:
 
@@ -11,11 +13,12 @@ Application bundle generation failed. [2.091 seconds]
 
 ✘ [ERROR] No loader is configured for ".woff2" files: ../node_modules/external-library/NotoSans.woff2
 
-    ../node_modules/external-library/styles.css:3:11:
+    ../node_modules/external-library/auto-imported.css:3:11:
       3 │   src: url("./NotoSans.woff2") format("woff2");
 ```
 
-For build, the user needs to manually configure the ESBuild loader for each asset type:
+For build, the user needs to manually configure the ESBuild loader for each
+asset type:
 
 ```sh
   "loader": {
@@ -47,21 +50,26 @@ For build, the user needs to manually configure the ESBuild loader for each asse
    npx ng build
    ```
 
+   See that there is no build error for the `manually-imported.css` file, but
+   there is a build error for `auto-imported.css`.
+
 4. Start the development server in the app folder
 
    ```sh
    npx ng serve
    ```
 
-   See that the font is loaded correctly without errors.
+   See that the font is loaded correctly from both css files without errors.
 
-See node_modules/external-library/ for the dummy external library with a CSS
+See /node_modules/external-library/ for an example external library with a CSS
 file.
 
 ## Extra details
 
-From my understanding, this is the ESBuild plugin Angular provides for resolving assets in CSS files:
+From my understanding, this is the ESBuild plugin Angular provides for resolving
+assets in CSS files:
 
 https://github.com/angular/angular-cli/blob/cc05242aa8354f3280b5a70eb1f9c0e9d85f1408/packages/angular/build/src/tools/esbuild/stylesheets/css-resource-plugin.ts#L22-L30
 
-I am not sure why it is not applied to CSS files imported from external libraries.
+I am not sure why it is not applied to CSS files imported from external
+libraries.
