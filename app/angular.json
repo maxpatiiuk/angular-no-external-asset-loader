@@ -1,0 +1,40 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "reproduction": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "optimization": false,
+            "loader": {
+              ".woff2-!disabled!": "file"
+            },
+            "assets": [
+              {
+                "glob": "NotoSans.woff2",
+                "input": "../node_modules/external-library/"
+              }
+            ],
+            "styles": ["src/styles.css"]
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "reproduction:build"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "1af70a31-5a8c-4169-a79d-d07ffcc99c4d"
+  }
+}
