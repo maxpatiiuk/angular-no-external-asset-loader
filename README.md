@@ -1,4 +1,4 @@
-# Angular loader not working for external assets
+# Angular build fails if external library imports assets in CSS files
 
 If user imports a CSS file that includes an asset `url()`, such asset is resolved correctly.
 
