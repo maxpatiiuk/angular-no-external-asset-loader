@@ -20,6 +20,10 @@
               {
                 "glob": "NotoSans.woff2",
                 "input": "../node_modules/external-library/"
+              },
+              {
+                "glob": "**/*",
+                "input": ".angular/cache/20.2.0/reproduction/vite"
               }
             ],
             "styles": ["src/styles.css"]
